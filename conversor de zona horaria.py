@@ -1,6 +1,6 @@
 import pytz
 from datetime import datetime
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, QMessageBox, QTextEdit
+from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, QMessageBox, QTextEdit, QComboBox
 
 class TimeConverterApp(QWidget):
     def __init__(self):
@@ -11,6 +11,14 @@ class TimeConverterApp(QWidget):
     def initUI(self):
         # Layout principal
         layout = QVBoxLayout()
+
+        # Etiqueta y campo para seleccionar el país
+        self.pais_label = QLabel('Selecciona el país de origen:', self)
+        layout.addWidget(self.pais_label)
+
+        self.pais_combo = QComboBox(self)
+        self.pais_combo.addItems(timezones.keys())  # Agregar los países al combo box
+        layout.addWidget(self.pais_combo)
 
         # Etiqueta y campo para ingresar la fecha
         self.fecha_label = QLabel('Fecha (YYYY-MM-DD):', self)
@@ -47,25 +55,30 @@ class TimeConverterApp(QWidget):
 
         try:
             datetime_str = f"{fecha} {hora}:00"  # Agregar segundos ":00"
-            argentina_tz = pytz.timezone('America/Argentina/Buenos_Aires')
-            argentina_time = datetime.strptime(datetime_str, '%Y-%m-%d %H:%M:%S')
-            argentina_time = argentina_tz.localize(argentina_time)
+            selected_country = self.pais_combo.currentText()
+            selected_tz = timezones[selected_country]
+            country_tz = pytz.timezone(selected_tz)
+            country_time = datetime.strptime(datetime_str, '%Y-%m-%d %H:%M:%S')
+            country_time = country_tz.localize(country_time)
         except ValueError:
             QMessageBox.critical(self, "Error de formato", "Por favor, ingresa la fecha en formato YYYY-MM-DD y la hora en formato HH:MM")
             return
 
         # Convertir las horas a los otros países
-        resultado = f"Hora ingresada en Argentina: {argentina_time.strftime('%Y-%m-%d %H:%M:%S')}\n\n"
+        resultado = f"Hora ingresada en {selected_country}: {country_time.strftime('%Y-%m-%d %H:%M:%S')}\n\n"
         for country, tz in timezones.items():
-            country_tz = pytz.timezone(tz)
-            country_time = argentina_time.astimezone(country_tz)
-            resultado += f"Hora en {country}: {country_time.strftime('%Y-%m-%d %H:%M:%S')}\n"
+            if country == selected_country:
+                continue
+            other_country_tz = pytz.timezone(tz)
+            other_country_time = country_time.astimezone(other_country_tz)
+            resultado += f"Hora en {country}: {other_country_time.strftime('%Y-%m-%d %H:%M:%S')}\n"
 
         # Mostrar el resultado en el campo de texto
         self.resultado_text.setText(resultado)
 
 # Definir las zonas horarias de los países
 timezones = {
+    'Argentina (Buenos Aires)': 'America/Argentina/Buenos_Aires',
     'Estados Unidos (New York)': 'America/New_York',
     'México (Ciudad de México)': 'America/Mexico_City',
     'Brasil (Sao Paulo)': 'America/Sao_Paulo',
