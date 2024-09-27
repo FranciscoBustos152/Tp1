@@ -95,7 +95,8 @@ timezones = {
     'Ecuador (Quito)': 'America/Guayaquil',
     'Panamá (Ciudad de Panamá)': 'America/Panama',
     'República Dominicana (Santo Domingo)': 'America/Santo_Domingo',
-    'El Salvador (San Salvador)': 'America/El_Salvador'
+    'El Salvador (San Salvador)': 'America/El_Salvador',
+    'Costa Rica (San José)': 'America/Costa_Rica',
 }
 
 # Ejecutar la aplicación
