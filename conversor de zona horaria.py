@@ -94,7 +94,8 @@ timezones = {
     'Bolivia (La Paz)': 'America/La_Paz',
     'Ecuador (Quito)': 'America/Guayaquil',
     'Panamá (Ciudad de Panamá)': 'America/Panama',
-    'República Dominicana (Santo Domingo)': 'America/Santo_Domingo'
+    'República Dominicana (Santo Domingo)': 'America/Santo_Domingo',
+    'El Salvador (San Salvador)': 'America/El_Salvador'
 }
 
 # Ejecutar la aplicación
