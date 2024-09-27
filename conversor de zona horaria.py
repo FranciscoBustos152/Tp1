@@ -96,7 +96,7 @@ timezones = {
     'Panamá (Ciudad de Panamá)': 'America/Panama',
     'República Dominicana (Santo Domingo)': 'America/Santo_Domingo',
     'El Salvador (San Salvador)': 'America/El_Salvador',
-    'Costa Rica (San José)': 'America/Costa_Rica',
+    'Costa Rica (San José)': 'America/Costa_Rica'
 }
 
 # Ejecutar la aplicación
