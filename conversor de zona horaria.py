@@ -97,6 +97,7 @@ timezones = {
     'República Dominicana (Santo Domingo)': 'America/Santo_Domingo',
     'El Salvador (San Salvador)': 'America/El_Salvador',
     'Costa Rica (San José)': 'America/Costa_Rica',
+    'Canadá (Ottawa)': 'America/Toronto'
 }
 
 # Ejecutar la aplicación
